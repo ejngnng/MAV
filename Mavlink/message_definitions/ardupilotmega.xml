@@ -18,6 +18,16 @@
     </enum>
     <!-- ardupilot specific MAV_CMD_* commands -->
     <enum name="MAV_CMD">
+    	<entry value="79" name="MAV_CMD_NAV_TURN_ARC">
+        <description>Loiter around this circle by degree.</description>
+        <param index="1">Arc around circle, in degrees, If positive loiter clockwise, else counter-clockwise.</param>
+        <param index="2">Empty.</param>
+        <param index="3">Empty.</param>
+        <param index="4">Empty.</param>
+        <param index="5">Latitude</param>
+        <param index="6">Longitude</param>
+        <param index="7">Altitude</param>
+      </entry>
       <entry value="211" name="MAV_CMD_DO_GRIPPER">
         <description>Mission command to operate EPM gripper</description>
         <param index="1">gripper number (a number from 1 to max number of grippers on the vehicle)</param>
@@ -38,6 +48,7 @@
         <param index="6">Empty</param>
         <param index="7">Empty</param>
       </entry>
+      <!-- added by ZhangYong 20170815 for xmdnk -->
       <entry value="227" name="MAV_CMD_DO_AUX_CONTROL">
             	 <description>AUX_PIN_CONTROL</description>
            		 <param index="1">AUX0_VALUE</param>
@@ -57,6 +68,16 @@
         <param index="5">Empty</param>
         <param index="6">Empty</param>
         <param index="7">Empty</param>
+      </entry>
+      <entry value="31900" name="MAV_CMD_CONTINUE">
+        <description>User defined command. when RC failsafe occur, GCS can upload this command to UAV to stop RTL</description>
+        <param index="1">User defined</param>
+        <param index="2">User defined</param>
+        <param index="3">User defined</param>
+        <param index="4">User defined</param>
+        <param index="5">User defined</param>
+        <param index="6">User defined</param>
+        <param index="7">User defined</param>
       </entry>
       <entry value="42000" name="MAV_CMD_POWER_OFF_INITIATED">
         <description>A system wide power-off event has been initiated.</description>
@@ -915,6 +936,13 @@
         <description>Stalling and steering towards the land point</description>
       </entry>
     </enum>
+    <enum name="NEWBROADCAST_STR_TYPE">
+      <entry value="1" name="REG_NO"/>
+      <entry value="2" name="REG_NO_REQUEST"/>
+      <entry value="3" name="TASK_ID"/>
+      <entry value="4" name="APP_VER_NO"/>
+      <entry value="5" name="TP_REG_NO"/>
+    </enum>
   </enums>
   <messages>
     <message id="150" name="SENSOR_OFFSETS">
@@ -1357,6 +1385,19 @@
       <field type="float" name="demanded_rate_y" units="rad/s">Demanded angular rate Y (rad/s)</field>
       <field type="float" name="demanded_rate_z" units="rad/s">Demanded angular rate Z (rad/s)</field>
     </message>
+    <message id="205" name="NEWBROADCAST_STR">
+      <description>Set UAV registration number, job task order ID, ground station version number, plant protection team ID</description>
+      <field type="uint8_t" name="type">message type</field>
+      <field type="uint64_t" name="tp_reg_no">plant protection team ID</field>
+      <field type="array[20]" name="string">Specific type string</field>
+    </message>
+    <message id="206" name="NEWBROADCAST_FLIGHT_STA">
+      <description>Spray area and flight distance in unit price</description>
+      <field type="uint16_t" name="flight_area"></field>
+      <field type="uint16_t" name="flight_length"></field>
+      <field type="uint16_t" name="flight_seq"></field>
+      <field type="uint8_t" name="state"></field>
+    </message>
     <message id="214" name="GIMBAL_TORQUE_CMD_REPORT">
       <description>100 Hz gimbal torque command telemetry</description>
       <field type="uint8_t" name="target_system">System ID</field>
@@ -1412,6 +1453,7 @@
       <field type="float" name="rpm1">RPM Sensor1</field>
       <field type="float" name="rpm2">RPM Sensor2</field>
     </message>
+    <!-- ardupilot specific mavlink messages added by ZhangYong 20170719-->
     <message name="PAYLOAD_STATUS" id="228">
     	<description>payload status of this mav</description>
     	<field type="uint32_t" name="system_time_ms">FMU system time in millisecond</field>

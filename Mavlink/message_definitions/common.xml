@@ -482,6 +482,9 @@
       <entry value="33554432" name="MAV_SYS_STATUS_SENSOR_BATTERY">
         <description>0x2000000 Battery</description>
       </entry>
+      <entry value="67108864" name="MAV_SYS_STATUS_SENSOR_PROXIMITY">
+        <description>0x4000000 Proximity</description>
+      </entry>
     </enum>
     <enum name="MAV_FRAME">
       <entry value="0" name="MAV_FRAME_GLOBAL">
@@ -694,6 +697,16 @@
         <param index="6">Longitude</param>
         <param index="7">Altitude</param>
       </entry>
+      <entry value="28" name="MAV_CMD_NAV_BREAK_WAYPOINT"> 
+        <description>breakpoint to MISSION.</description> 
+        <param index="1">Hold time in decimal seconds. (ignored by fixed wing, time to stay at MISSION for rotary wing)</param> 
+        <param index="2">Breakpoint combination index.bit0:waypoint,bit1:speed,bit2:yaw,bit3:open spray</param> 
+        <param index="3">Breakpoint combination starting position</param> 
+        <param index="4">Navigation position offset of the waypoint in the breakpoint combination</param> 
+        <param index="5">Latitude</param> 
+        <param index="6">Longitude</param> 
+        <param index="7">Altitude</param> 
+      </entry> 
       <entry value="30" name="MAV_CMD_NAV_CONTINUE_AND_CHANGE_ALT">
         <description>Continue on the current course and climb/descend to specified altitude.  When the altitude is reached continue to the next command (i.e., don't proceed to the next command until the desired altitude is reached.</description>
         <param index="1">Climb or Descend (0 = Neutral, command completes when within 5m of this command's altitude, 1 = Climbing, command completes when at or above this command's altitude, 2 = Descending, command completes when at or below this command's altitude. </param>
@@ -733,7 +746,7 @@
         <param index="5">altitude offset from target (m)</param>
         <param index="6">X offset from target (m)</param>
         <param index="7">Y offset from target (m)</param>
-      </entry>
+      </entry>      
       <entry value="80" name="MAV_CMD_NAV_ROI">
         <description>Sets the region of interest (ROI) for a sensor set or the vehicle itself. This can then be used by the vehicles control system to control the vehicle attitude and the attitude of various sensors such as cameras.</description>
         <param index="1">Region of intereset mode. (see MAV_ROI enum)</param>
@@ -1736,6 +1749,7 @@
         <param index="6">User defined</param>
         <param index="7">User defined</param>
       </entry>
+      
       <!-- charge station for XMDNK -->
       
 
